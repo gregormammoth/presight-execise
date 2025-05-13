@@ -43,7 +43,6 @@ app.get('/api/users', (req, res) => {
 
   let filteredData = [...mockData];
 
-  // Apply filters
   if (nationality) {
     filteredData = filteredData.filter(user => user.nationality === nationality);
   }
@@ -52,7 +51,6 @@ app.get('/api/users', (req, res) => {
     filteredData = filteredData.filter(user => user.hobbies.includes(hobby));
   }
 
-  // Apply search
   if (search) {
     filteredData = filteredData.filter(user => 
       user.first_name.toLowerCase().includes(search) ||

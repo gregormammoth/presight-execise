@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useUsers = () => {
+export const useUsers = ({ search, hobby, nationality }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -11,7 +11,7 @@ export const useUsers = () => {
       setLoading(true);
       try {
         const limit = 10;
-        const response = await fetch(`http://localhost:3001/api/users?page=${page}&limit=${limit}`);
+        const response = await fetch(`http://localhost:3001/api/users?page=${page}&limit=${limit}&search=${search || ''}&hobby=${hobby || ''}&nationality=${nationality || ''}`);
         const data = await response.json();
         setHasMore(data.data.length > 0);
         setUsers(prev => [...prev, ...data.data]);
@@ -22,7 +22,12 @@ export const useUsers = () => {
     };
 
     fetchUsers();
-  }, [page]);
+  }, [page, search, hobby, nationality]);
+
+  const resetPage = () => {
+    setUsers([]);
+    setPage(1);
+  };
 
   const incrementPage = () => {
     if (hasMore) {
@@ -34,6 +39,7 @@ export const useUsers = () => {
     users,
     isLoadingUsers: loading,
     hasMoreUsers: hasMore,
+    resetPage,
     incrementPage,
   };
 };
