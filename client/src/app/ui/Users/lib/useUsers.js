@@ -11,7 +11,7 @@ export const useUsers = ({ search, hobby, nationality }) => {
       setLoading(true);
       try {
         const limit = 10;
-        const response = await fetch(`http://localhost:3001/api/users?page=${page}&limit=${limit}&search=${search || ''}&hobby=${hobby || ''}&nationality=${nationality || ''}`);
+        const response = await fetch(`http://localhost:3001/api/users/list?page=${page}&limit=${limit}&search=${search || ''}&hobby=${hobby || ''}&nationality=${nationality || ''}`);
         const data = await response.json();
         setHasMore(data.data.length > 0);
         setUsers(prev => [...prev, ...data.data]);

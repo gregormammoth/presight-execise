@@ -9,7 +9,7 @@ export const useOptions = () => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:3001/api/aggregates`);
+        const response = await fetch(`http://localhost:3001/api/users/options`);
         const data = await response.json();
         setTopHobbies(data.topHobbies);
         setNationalities(data.nationalities);
