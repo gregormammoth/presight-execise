@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import { Text, Users } from './ui';
+import { Queue, Text, Users } from './ui';
 import './index.css';
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
     <div className='grid grid-cols-3'>
       <Users/>
       <Text/>
-      <div>col 3</div>
+      <Queue/>
     </div>
   );
 };
