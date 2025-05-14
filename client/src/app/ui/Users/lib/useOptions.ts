@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 
+type OptionsResponse = {
+  topHobbies: string[];
+  nationalities: string[];
+}
+
 export const useOptions = () => {
-  const [hobbies, setTopHobbies] = useState([]);
-  const [nationalities, setNationalities] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [hobbies, setTopHobbies] = useState<string[]>([]);
+  const [nationalities, setNationalities] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
         const response = await fetch(`http://localhost:3001/api/users/options`);
-        const data = await response.json();
+        const data: OptionsResponse = await response.json();
         setTopHobbies(data.topHobbies);
         setNationalities(data.nationalities);
       } catch (error) {

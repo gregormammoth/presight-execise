@@ -1,17 +1,17 @@
-
 import * as React from 'react';
 
-const Text = () => {
-  const [displayText, setDisplayText] = React.useState('');
-  const [completeText, setCompleteText] = React.useState('');
-  const [isStreaming, setIsStreaming] = React.useState(false);
+const Text: React.FC = () => {
+  const [displayText, setDisplayText] = React.useState<string>('');
+  const [completeText, setCompleteText] = React.useState<string>('');
+  const [isStreaming, setIsStreaming] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const fetchText = async () => {
       try {
         setIsStreaming(true);
         const response = await fetch('http://localhost:3001/api/text/paragraphs');
-        const reader = response.body.getReader();
+        const reader = response.body?.getReader();
+        if (!reader) throw new Error('Failed to get reader');
         const decoder = new TextDecoder();
 
         while (true) {

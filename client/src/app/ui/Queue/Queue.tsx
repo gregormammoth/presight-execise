@@ -1,14 +1,18 @@
 import * as React from 'react';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 
-const Queue = () => {
-  const [results, setResults] = React.useState({});
-  const ws = React.useRef(null);
+type QueueResult = {
+  [key: string]: string;
+}
+
+const Queue: React.FC = () => {
+  const [results, setResults] = React.useState<QueueResult>({});
+  const ws = React.useRef<Socket | null>(null);
 
   React.useEffect(() => {
     ws.current = io('http://localhost:8080');
 
-    ws.current.on('result', (result) => {
+    ws.current.on('result', (result: { id: string; result: string }) => {
       setResults(prev => ({
         ...prev,
         [result.id]: result.result,

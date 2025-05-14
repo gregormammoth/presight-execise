@@ -1,6 +1,11 @@
 import React from 'react';
+import { User } from '../../../model';
 
-const UserCard = ({ user }) => {
+type UserCardProps = {
+  user: User;
+}
+
+const UserCard: React.FC<UserCardProps> = ({ user }) => {
   return (
     <div className="border p-4 rounded shadow">
       <div className="flex">

@@ -1,16 +1,15 @@
-
 import * as React from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 import { useOptions, useUsers } from './lib';
 import { UserCard } from './ui';
 
-const Users = () => {
-  const parentRef = React.useRef();
+const Users: React.FC = () => {
+  const parentRef = React.useRef<HTMLDivElement>(null);
 
-  const [search, setSearch] = React.useState();
-  const [hobby, setHobby] = React.useState();
-  const [nationality, setNationality] = React.useState();
+  const [search, setSearch] = React.useState<string>('');
+  const [hobby, setHobby] = React.useState<string>('');
+  const [nationality, setNationality] = React.useState<string>('');
 
   const { hobbies, nationalities, isLoadingOptions } = useOptions();
   const { users, hasMoreUsers, incrementPage, resetPage, isLoadingUsers } = useUsers({ search, hobby, nationality });
@@ -35,17 +34,17 @@ const Users = () => {
     }
   }, [rowVirtualizer.getVirtualItems(), isLoadingUsers]);
 
-  const onChangeSearch = (e) => {
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     resetPage();
     setSearch(e.target.value);
   }
 
-  const onChangeHobby = (e) => {
+  const onChangeHobby = (e: React.ChangeEvent<HTMLSelectElement>) => {
     resetPage();
     setHobby(e.target.value);
   };
 
-  const onChangeNationality = (e) => {
+  const onChangeNationality = (e: React.ChangeEvent<HTMLSelectElement>) => {
     resetPage();
     setNationality(e.target.value);
   };

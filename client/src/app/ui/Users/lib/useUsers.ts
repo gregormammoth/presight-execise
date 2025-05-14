@@ -1,10 +1,21 @@
 import { useEffect, useState } from 'react';
+import { User } from '../../../model';
 
-export const useUsers = ({ search, hobby, nationality }) => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+type UsersResponse = {
+  data: User[];
+}
+
+type UseUsersProps = {
+  search?: string;
+  hobby?: string;
+  nationality?: string;
+}
+
+export const useUsers = ({ search, hobby, nationality }: UseUsersProps) => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -12,7 +23,7 @@ export const useUsers = ({ search, hobby, nationality }) => {
       try {
         const limit = 10;
         const response = await fetch(`http://localhost:3001/api/users/list?page=${page}&limit=${limit}&search=${search || ''}&hobby=${hobby || ''}&nationality=${nationality || ''}`);
-        const data = await response.json();
+        const data: UsersResponse = await response.json();
         setHasMore(data.data.length > 0);
         setUsers(prev => [...prev, ...data.data]);
       } catch (error) {
