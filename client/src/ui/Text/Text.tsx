@@ -37,7 +37,7 @@ const Text: React.FC = () => {
     fetchText();
   }, []);
   return (
-    <div>{displayText}{isStreaming ? '...' : ''}</div>
+    <div className="p-4">{displayText}{isStreaming ? '...' : ''}</div>
   )
 };
 

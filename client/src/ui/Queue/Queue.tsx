@@ -47,14 +47,13 @@ const Queue: React.FC = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl mb-4">Queue Status</h2>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         {Object.values(results).map((result, index) => (
-          <div 
+          <div
             key={index}
-            className="border p-4 rounded shadow"
+            className="bg-white border border-gray-200 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
-            <div className="font-bold mb-2">Request {index + 1}</div>
+            <div className="font-semibold text-gray-800">Request {index + 1}</div>
             <div>{result}</div>
           </div>
         ))}

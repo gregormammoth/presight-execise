@@ -17,7 +17,7 @@ const Users: React.FC = () => {
   const rowVirtualizer = useVirtualizer({
     count: hasMoreUsers ? users.length + 1 : users.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 100,
+    estimateSize: () => 148,
     overscan: 5,
   });
 
@@ -54,29 +54,50 @@ const Users: React.FC = () => {
       ref={parentRef}
       className="h-screen overflow-auto p-4"
     >
-      <form className='flex flex-col'>
-        <label>
-          Search&nbsp;
-          <input onChange={onChangeSearch}/>
-        </label>
-        <label>
-          Hobby&nbsp;
-          <select onChange={onChangeHobby}>
-            <option />
+      <form className="flex flex-col gap-4 mb-6 p-4 bg-white rounded-lg shadow">
+        <div className="flex flex-col">
+          <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="search">
+            Search
+          </label>
+          <input
+            id="search"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={onChangeSearch}
+            placeholder="Search users..."
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="hobby">
+            Hobby
+          </label>
+          <select
+            id="hobby"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={onChangeHobby}
+          >
+            <option value="">Any</option>
             {hobbies.map((item, index) => (
-              <option key={index}>{item}</option>
+              <option key={index} value={item}>{item}</option>
             ))}
           </select>
-        </label>
-        <label>
-          Nationality
-          <select onChange={onChangeNationality}>
-            <option />
+        </div>
+
+        <div className="flex flex-col">
+          <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="nationality">
+            Nationality
+          </label>
+          <select
+            id="nationality"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={onChangeNationality}
+          >
+            <option value="">Any</option>
             {nationalities.map((item, index) => (
-              <option key={index}>{item}</option>
+              <option key={index} value={item}>{item}</option>
             ))}
           </select>
-        </label>
+        </div>
       </form>
       <div
         style={{
