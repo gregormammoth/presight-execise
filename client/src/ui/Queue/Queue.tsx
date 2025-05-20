@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { io, Socket } from 'socket.io-client';
+import config from '../../config';
 
 type QueueResult = {
   [key: string]: string;
@@ -10,7 +11,7 @@ const Queue: React.FC = () => {
   const ws = React.useRef<Socket | null>(null);
 
   React.useEffect(() => {
-    ws.current = io('http://localhost:8080');
+    ws.current = io(config.api.wsUrl);
 
     ws.current.on('result', (result: { id: string; result: string }) => {
       setResults(prev => ({
@@ -21,7 +22,7 @@ const Queue: React.FC = () => {
 
     const makeRequests = async () => {
       for (let i = 0; i < 20; i++) {
-        const response = await fetch('http://localhost:3001/api/queue/request', {
+        const response = await fetch(`${config.api.baseUrl}/api/queue/request`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -47,13 +48,14 @@ const Queue: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className="grid grid-cols-3 gap-4">
+      <h2 className="text-xl mb-4">Queue Status</h2>
+      <div className="grid grid-cols-4 gap-4">
         {Object.values(results).map((result, index) => (
-          <div
+          <div 
             key={index}
-            className="bg-white border border-gray-200 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            className="border p-4 rounded shadow"
           >
-            <div className="font-semibold text-gray-800">Request {index + 1}</div>
+            <div className="font-bold mb-2">Request {index + 1}</div>
             <div>{result}</div>
           </div>
         ))}

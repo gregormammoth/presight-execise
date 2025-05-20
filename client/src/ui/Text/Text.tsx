@@ -1,4 +1,5 @@
 import * as React from 'react';
+import config from '../../config';
 
 const Text: React.FC = () => {
   const [displayText, setDisplayText] = React.useState<string>('');
@@ -9,7 +10,7 @@ const Text: React.FC = () => {
     const fetchText = async () => {
       try {
         setIsStreaming(true);
-        const response = await fetch('http://localhost:3001/api/text/paragraphs');
+        const response = await fetch(`${config.api.baseUrl}/api/text/paragraphs`);
         const reader = response.body?.getReader();
         if (!reader) throw new Error('Failed to get reader');
         const decoder = new TextDecoder();

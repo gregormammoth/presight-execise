@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import config from '../../../config';
 import { User } from '../../../model';
 
 type UsersResponse = {
@@ -22,7 +23,15 @@ export const useUsers = ({ search, hobby, nationality }: UseUsersProps) => {
       setLoading(true);
       try {
         const limit = 10;
-        const response = await fetch(`http://localhost:3001/api/users/list?page=${page}&limit=${limit}&search=${search || ''}&hobby=${hobby || ''}&nationality=${nationality || ''}`);
+        const queryParams = {
+          page: String(page),
+          limit: String(limit),
+          search: search || '',
+          hobby: hobby || '',
+          nationality: nationality || ''
+        };
+        const queryString = new URLSearchParams(queryParams).toString();
+        const response = await fetch(`${config.api.baseUrl}/api/users/list?${queryString}`);
         const data: UsersResponse = await response.json();
         setHasMore(data.data.length > 0);
         setUsers(prev => [...prev, ...data.data]);
